@@ -46,21 +46,6 @@ export function DataTable<TData, TValue>({
   totalItems = data.length,
   pageSizeOptions = [5, 10, 20, 30, 40, 50],
 }: DataTableProps<TData, TValue>) {
-  // const [pagination, setPagination] = useState({
-  //   pageIndex: 0,
-  //   pageSize: pageSizeOptions[0],
-  // });
-
-  // const table = useReactTable({
-  //   data,
-  //   columns,
-  //   getCoreRowModel: getCoreRowModel(),
-  //   getPaginationRowModel: getPaginationRowModel(),
-  //   onPaginationChange: setPagination,
-  //   state: {
-  //     pagination,
-  //   },
-  // });
 
   return (
     <div className="space-y-4">
