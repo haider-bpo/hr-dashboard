@@ -2,9 +2,12 @@ import { lazy, useEffect } from "react";
 import { RouteObject, useNavigate } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "@/components/layout/dashboard-layout";
+import JobsPage from "@/pages/jobs";
 
-const Jobs = lazy(() => import("../pages/jobs"));
-const Applicants = lazy(() => import("../pages/applicants"));
+const ApplicantsPage = lazy(() => import("@/pages/applicants"));
+const JobCreationPage = lazy(
+  () => import("@/pages/jobs/_components/job-creation-page")
+);
 const NotFound = lazy(() => import("../pages/not-found"));
 
 const routes: RouteObject[] = [
@@ -20,7 +23,15 @@ const routes: RouteObject[] = [
         path: "jobs",
         element: (
           <PrivateRoute>
-            <Jobs />
+            <JobsPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "jobs/:jobId",
+        element: (
+          <PrivateRoute>
+            <JobCreationPage />
           </PrivateRoute>
         ),
       },
@@ -28,7 +39,7 @@ const routes: RouteObject[] = [
         path: "applicants",
         element: (
           <PrivateRoute>
-            <Applicants />
+            <ApplicantsPage />
           </PrivateRoute>
         ),
       },

@@ -8,19 +8,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Job } from "@/constants/types/types";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Applicant } from "@/constants/types/types";
+import { MoreHorizontal, Trash } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface CellActionProps {
-  data: Job;
+  data: Applicant;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading] = useState(false);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
 
   const onConfirm = async () => {};
 
@@ -31,8 +29,8 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onClose={() => setOpen(false)}
         onConfirm={onConfirm}
         loading={loading}
-        title={`Delete job "${data.title}"`}
-        description="Are you sure you want to delete this job?"
+        title={`Delete Applicant "${data?.name} - (${data?.department})"`}
+        description="Are you sure you want to delete this applicant?"
       />
 
       <DropdownMenu modal={false}>
@@ -45,9 +43,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-          <DropdownMenuItem onClick={() => navigate(`/jobs/${data.id}`)}>
-            <Edit className="mr-2 h-4 w-4" /> Update
-          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
             <Trash className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>

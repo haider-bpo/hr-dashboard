@@ -60,7 +60,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       {/* side header  */}
-      <SidebarHeader>
+      <SidebarHeader className="dark:bg-[#08060F]">
         <div className="flex gap-2 py-2 text-sidebar-accent-foreground">
           <div className="w-40 h-10 relative">
             <Link to={"/"}>
@@ -76,7 +76,7 @@ export function AppSidebar() {
       </SidebarHeader>
 
       {/* side menu  */}
-      <SidebarContent>
+      <SidebarContent className="dark:bg-[#08060F]">
         <SidebarGroup>
           <SidebarGroupLabel>Overview</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -102,7 +102,7 @@ export function AppSidebar() {
       </SidebarContent>
 
       {/* side footer  */}
-      <SidebarFooter>
+      <SidebarFooter className="dark:bg-[#08060F]">
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>

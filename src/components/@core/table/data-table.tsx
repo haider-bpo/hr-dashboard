@@ -1,12 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { ColumnDef, flexRender } from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -34,27 +27,22 @@ import {
 interface DataTableProps<TData, TValue> {
   table: any;
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  totalItems?: number;
   pageSizeOptions?: number[];
 }
 
 export function DataTable<TData, TValue>({
   table,
   columns,
-  data,
-  totalItems = data.length,
   pageSizeOptions = [5, 10, 20, 30, 40, 50],
 }: DataTableProps<TData, TValue>) {
-
   return (
     <div className="space-y-4">
       <ScrollArea className="grid h-[calc(80vh-220px)] rounded-md border md:h-[calc(90dvh-240px)]">
         <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
+          <TableHeader className="bg-muted/50 sticky top-0 z-10">
+            {table.getHeaderGroups().map((headerGroup: any) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
+                {headerGroup.headers.map((header: any) => (
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
@@ -69,12 +57,12 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row: any) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
+                  {row.getVisibleCells().map((cell: any) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -101,7 +89,7 @@ export function DataTable<TData, TValue>({
 
       {/* Pagination Controls */}
       <div className="flex items-center justify-between px-2">
-        <div className="flex-1 text-sm text-muted-foreground">
+        <div className="flex-1 text-sm text-muted-foreground hidden md:block">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </div>

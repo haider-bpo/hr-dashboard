@@ -1,13 +1,23 @@
+import { Applicant, Job, MenuItem } from "./types/types";
 
-export type Job = {
-  id: string;
-  title: string;
-  type: string;
-  location: string;
-  department: string;
-  employment: string;
-};
-
+export const navItems: MenuItem[] = [
+  {
+    title: "Posted Jobs",
+    url: "/dashboard/posted-jobs",
+    icon: "user",
+    shortcut: ["e", "e"],
+    isActive: false,
+    items: [], // No child items
+  },
+  {
+    title: "Applied Jobs",
+    url: "/dashboard/applied-jobs",
+    icon: "user",
+    shortcut: ["e", "e"],
+    isActive: false,
+    items: [], // No child items
+  },
+];
 
 export const jobs: Job[] = [
   {
@@ -172,23 +182,59 @@ export const jobs: Job[] = [
   },
 ];
 
-
-
-export const navItems: any = [
+export const applicants: Applicant[] = [
   {
-    title: 'Posted Jobs',
-    url: '/dashboard/posted-jobs',
-    icon: 'user',
-    shortcut: ['e', 'e'],
-    isActive: false,
-    items: [] // No child items
+    name: "John Doe",
+    email: "johndoe@example.com",
+    phone: "+1234567890",
+    city: "New York",
+    experience: "5 years",
+    department: "Engineering",
+    cv: "https://res.cloudinary.com/demo/image/upload/v1234567890/johndoe_cv.pdf",
   },
   {
-    title: 'Applied Jobs',
-    url: '/dashboard/applied-jobs',
-    icon: 'user',
-    shortcut: ['e', 'e'],
-    isActive: false,
-    items: [] // No child items
-  }
+    name: "Jane Smith",
+    email: "janesmith@example.com",
+    phone: "+1987654321",
+    city: "San Francisco",
+    experience: "3 years",
+    department: "Marketing",
+    cv: "https://res.cloudinary.com/demo/image/upload/v1234567890/janesmith_cv.pdf",
+  },
+  {
+    name: "Michael Brown",
+    email: "michaelbrown@example.com",
+    phone: "+1123456789",
+    city: "Los Angeles",
+    experience: "7 years",
+    department: "Finance",
+    cv: "https://res.cloudinary.com/demo/image/upload/v1234567890/michaelbrown_cv.pdf",
+  },
+  {
+    name: "Emily Davis",
+    email: "emilydavis@example.com",
+    phone: "+1212345678",
+    city: "Chicago",
+    experience: "2 years",
+    department: "Human Resources",
+    cv: "https://res.cloudinary.com/demo/image/upload/v1234567890/emilydavis_cv.pdf",
+  },
+  {
+    name: "Robert Wilson",
+    email: "robertwilson@example.com",
+    phone: "+1239876543",
+    city: "Houston",
+    experience: "6 years",
+    department: "Operations",
+    cv: "https://res.cloudinary.com/demo/image/upload/v1234567890/robertwilson_cv.pdf",
+  },
+  {
+    name: "Sophia Johnson",
+    email: "sophiajohnson@example.com",
+    phone: "+1987123456",
+    city: "Seattle",
+    experience: "4 years",
+    department: "Design",
+    cv: "https://res.cloudinary.com/demo/image/upload/v1234567890/sophiajohnson_cv.pdf",
+  },
 ];

@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/@core/table/data-table";
 import { columns } from "./columns";
-import { Job } from "@/constants/types/types";
+import { Applicant } from "@/constants/types/types";
 import {
   ColumnFiltersState,
   getCoreRowModel,
@@ -14,7 +14,7 @@ import {
 import React from "react";
 import DataTableSearch from "@/components/@core/table/data-table-search";
 
-function JobsTable({ data }: { data: Job[] }) {
+function ApplicantsTable({ data }: { data: Applicant[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -59,4 +59,4 @@ function JobsTable({ data }: { data: Job[] }) {
   );
 }
 
-export default JobsTable;
+export default ApplicantsTable;

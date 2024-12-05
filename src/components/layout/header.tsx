@@ -1,7 +1,7 @@
 import { SidebarTrigger } from '../ui/sidebar';
 import { Separator } from '../ui/separator';
 import UserNav from './user-nav';
-import ThemeToggle from './ThemeToggle/theme-toggle';
+import ThemeToggle from './theme-toggle';
 
 export default function Header() {
   return (
