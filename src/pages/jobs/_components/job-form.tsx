@@ -77,11 +77,11 @@ function JobForm() {
               className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-3"
             >
               {row.map(
-                ({ component: Component, colSpan, ...props }, colIndex) => (
+                ({ component: Component, ...props }, colIndex) => (
                   <div
                     key={colIndex}
                   >
-                    <Component {...props} />
+                    <Component {...props as any} />
                   </div>
                 )
               )}

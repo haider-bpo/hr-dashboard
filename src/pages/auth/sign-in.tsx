@@ -1,13 +1,12 @@
 import { Heading } from "@/components/@core/heading";
 import InputField from "@/components/@core/inputs/input-field";
 import PasswordField from "@/components/@core/inputs/password-field";
-import Loader from "@/components/@core/Loader";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { signInSchema } from "@/schemas/sigin-form-schema";
-import { useSession, useSignIn } from "@clerk/clerk-react";
+import { useSignIn } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -116,7 +115,7 @@ const SignInPage: FC<SignInPageProps> = () => {
               <div className="grid gap-y-3 md:gap-y-7">
                 {/* Render Fields Dynamically */}
                 {signInFormFields.map(
-                  ({ component: Component, colSpan, ...props }, colIndex) => (
+                  ({ component: Component, ...props }, colIndex) => (
                     <div key={colIndex} className="grid gap-y-3">
                       <div key={colIndex}>
                         <Component {...props} />

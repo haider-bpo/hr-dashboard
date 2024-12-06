@@ -6,7 +6,6 @@ import Loader from "@/components/@core/Loader";
 import ErrorBoundary from "./ErrorBoundary";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { PUBLISHABLE_KEY } from "@/config/environment";
-import { ScrollArea } from "@/components/ui/scroll-area";
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
@@ -14,9 +13,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         <ClerkProvider
           publishableKey={PUBLISHABLE_KEY}
           afterSignOutUrl="/signin"
-          // signInFallbackRedirectUrl={"/"}
-          // signInUrl="/"
-          // signInForceRedirectUrl={'/'}
         >
           <BrowserRouter>
             <Suspense fallback={<Loader />}>
