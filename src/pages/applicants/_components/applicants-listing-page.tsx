@@ -7,7 +7,7 @@ import ApplicantsTable from "./applicants-table";
 function ApplicantListingPage() {
   return (
     <PageContainer scrollable>
-      <div className="space-y-4">
+      <div className="space-y-4" data-aos="fade-up">
         {/* heading  */}
         <div className="flex items-start justify-between">
           <Heading title="Applicants" description="Applicants detail" />

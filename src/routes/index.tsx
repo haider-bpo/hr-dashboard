@@ -1,8 +1,9 @@
 import { lazy, useEffect } from "react";
 import { RouteObject, useNavigate } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "@/components/layout/dashboard-layout";
 import JobsPage from "@/pages/jobs";
+import SignInPage from "@/pages/auth/sign-in";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
 
 const ApplicantsPage = lazy(() => import("@/pages/applicants"));
 const JobCreationPage = lazy(
@@ -12,35 +13,52 @@ const NotFound = lazy(() => import("../pages/not-found"));
 
 const routes: RouteObject[] = [
   {
+    path: "/signin",
+    element: (
+      <SignedOut>
+        <SignInPage />
+      </SignedOut>
+    ),
+  },
+
+  {
     path: "",
-    element: <DashboardLayout />,
+    element: (
+      <SignedIn>
+        <DashboardLayout />
+      </SignedIn>
+    ),
     children: [
       {
         path: "/",
-        element: <RedirectOnLoad />,
+        element: (
+          <SignedIn>
+            <RedirectOnLoad />
+          </SignedIn>
+        ),
       },
       {
         path: "jobs",
         element: (
-          <PrivateRoute>
+          <SignedIn>
             <JobsPage />
-          </PrivateRoute>
+          </SignedIn>
         ),
       },
       {
         path: "jobs/:jobId",
         element: (
-          <PrivateRoute>
+          <SignedIn>
             <JobCreationPage />
-          </PrivateRoute>
+          </SignedIn>
         ),
       },
       {
         path: "applicants",
         element: (
-          <PrivateRoute>
+          <SignedIn>
             <ApplicantsPage />
-          </PrivateRoute>
+          </SignedIn>
         ),
       },
     ],
@@ -48,7 +66,11 @@ const routes: RouteObject[] = [
 
   {
     path: "*",
-    element: <NotFound />,
+    element: (
+      <SignedOut>
+        <NotFound />
+      </SignedOut>
+    ),
   },
 ];
 

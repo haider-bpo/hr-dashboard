@@ -1,10 +1,20 @@
-import { Navigate } from "react-router-dom";
+import Loader from "@/components/@core/Loader";
+import { useSession } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-  // const isAuthenticated = Boolean(localStorage.getItem("token"));s
-  const isAuthenticated = true;
+  const { session, isLoaded } = useSession();
+  const navigate = useNavigate();
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  if (isLoaded) {
+    return <Loader />; // Show a loading state while the session is being fetched
+  }
+
+  if (!session) {
+    navigate("/login"); // Redirect to login page if not authenticated
+  }
+
+  return children;
 };
 
 export default PrivateRoute;

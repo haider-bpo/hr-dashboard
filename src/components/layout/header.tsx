@@ -2,6 +2,7 @@ import { SidebarTrigger } from '../ui/sidebar';
 import { Separator } from '../ui/separator';
 import UserNav from './user-nav';
 import ThemeToggle from './theme-toggle';
+import { UserButton } from '@clerk/clerk-react';
 
 export default function Header() {
   return (
@@ -12,6 +13,7 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-2 px-4">
+        {/* <UserButton /> */}
         <UserNav />
         <ThemeToggle />
       </div>

@@ -13,6 +13,8 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		colors: {
+			customPurple: '#17122b',
+			// secondaryc: '#08060F',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

@@ -23,8 +23,9 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useClerk } from "@clerk/clerk-react";
 
 const user = {
   name: "John Doe",
@@ -57,6 +58,8 @@ export function AppSidebar() {
   const location = useLocation();
   const pathname = location.pathname;
   const { open } = useSidebar();
+  const { signOut } = useClerk();
+
   return (
     <Sidebar collapsible="icon">
       {/* side header  */}
@@ -147,7 +150,7 @@ export function AppSidebar() {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={signOut}>
                   <LogOut />
                   Log out
                 </DropdownMenuItem>

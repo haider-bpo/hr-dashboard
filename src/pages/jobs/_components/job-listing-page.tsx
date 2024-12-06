@@ -14,14 +14,15 @@ function JobListingPage() {
 
   return (
     <PageContainer scrollable>
-      <div className="space-y-4">
+      <div className="space-y-4" data-aos="fade-up">
         {/* heading  */}
         <div className="flex items-start justify-between">
           <Heading
             title="Jobs"
             description="Posted jobs"
-            actionButtonLabel="Add new"
+            actionButtonLabel="Create new job"
             actionButtonHandler={jobHandler}
+            data-aos="fade-down"
           />
         </div>
 

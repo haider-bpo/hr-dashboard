@@ -9,6 +9,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { useClerk } from "@clerk/clerk-react";
 
 const user = {
   name: "John Doe",
@@ -16,9 +17,8 @@ const user = {
 };
 
 function UserNav() {
-  const signOut = () => {
-    // Sign out logic goes here
-  };
+
+  const { signOut } = useClerk();
 
   return (
     <DropdownMenu>

@@ -3,6 +3,7 @@ import { Input } from "../../ui/input";
 
 import type { FC } from "react";
 import Error from "./error";
+import { Label } from "@/components/ui/label";
 
 interface InputFieldProps {
   label: string;
@@ -22,9 +23,9 @@ const InputField: FC<InputFieldProps> = ({
 
   return (
     <div className="grid gap-2">
-      <label htmlFor={name} className="capitalize">
+      <Label htmlFor={name} className="capitalize">
         {label}
-      </label>
+      </Label>
       <Input
         id={name}
         type={type || "text"}
