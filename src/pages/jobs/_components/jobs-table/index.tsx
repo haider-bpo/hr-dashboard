@@ -36,11 +36,11 @@ function JobsTable({ data }: { data: Job[] }) {
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: (row, filterValue) => {
-      const searchValue = filterValue.toLowerCase();
-      return Object.values(row.original).some((value) =>
+    globalFilterFn: (row, columnId, filterValue) => {
+      const searchValue = filterValue.toLowerCase()
+      return Object.values(row.original).some(value => 
         String(value).toLowerCase().includes(searchValue)
-      );
+      )
     },
     state: {
       sorting,

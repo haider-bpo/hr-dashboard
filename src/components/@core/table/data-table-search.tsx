@@ -32,10 +32,9 @@ function DataTableSearch({ table }: any) {
             type="search"
             name="Search"
             placeholder="Search..."
-            className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-inherit border"
-            data-listener-added_2bdc2824="true"
-            value={table.getState().globalFilter ?? ""}
-            onChange={(event) => table.setGlobalFilter(event.target.value)}
+            className="w-32 px-2 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-inherit border"
+            value={table.getState().globalFilter ?? ""} // Ensure the value reflects the global filter state
+            onChange={(event) => table.setGlobalFilter(event.target.value)} // Update the global filter
           />
         </div>
       </fieldset>

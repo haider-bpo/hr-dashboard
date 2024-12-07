@@ -36,7 +36,7 @@ function ApplicantsTable({ data }: { data: Applicant[] }) {
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: (row, filterValue) => {
+    globalFilterFn: (row, columnId, filterValue) => {
       const searchValue = filterValue.toLowerCase();
       return Object.values(row.original).some((value) =>
         String(value).toLowerCase().includes(searchValue)
