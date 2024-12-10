@@ -16,6 +16,6 @@ export const applicantValidationSchema = z.object({
     .refine((val) => Object.values(DepartmentEnum).includes(val), {
       message: "The 'department' field must be selected and valid",
     }),
-  resume: z.string().min(1, "Resume is required").trim(),
+  // resume: z.string().min(1, "Resume is required").trim(),
   status: z.boolean().optional(),
 });
