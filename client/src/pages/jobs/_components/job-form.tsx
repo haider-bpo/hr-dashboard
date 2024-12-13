@@ -14,6 +14,7 @@ import {
   JobTypeEnum,
 } from "@/constants/enums/job-enums";
 import { getEnumOptions } from "@/utils/enum-utils";
+import { useAddJob } from "@/features/jobs/jobSelectors";
 
 // Form field configuration
 const jobCreationFormFields = [
@@ -56,14 +57,16 @@ const jobCreationFormFields = [
 ];
 
 function JobForm() {
-  type JobFormData = z.infer<typeof jobFormSchema>;
+  const addJob = useAddJob();
 
+  type JobFormData = z.infer<typeof jobFormSchema>;
   const methods = useForm<JobFormData>({
     resolver: zodResolver(jobFormSchema),
   });
 
-  const onSubmit = (data: JobFormData) => {
+  const onSubmit = async (data: JobFormData) => {
     console.log(data);
+    await addJob(data);
   };
 
   return (
@@ -76,15 +79,11 @@ function JobForm() {
               key={rowIndex}
               className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-3"
             >
-              {row.map(
-                ({ component: Component, ...props }, colIndex) => (
-                  <div
-                    key={colIndex}
-                  >
-                    <Component {...props as any} />
-                  </div>
-                )
-              )}
+              {row.map(({ component: Component, ...props }, colIndex) => (
+                <div key={colIndex}>
+                  <Component {...(props as any)} />
+                </div>
+              ))}
             </div>
           ))}
 

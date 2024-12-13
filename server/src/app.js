@@ -24,7 +24,7 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use("/api", appRouter);
+app.use("/api/v1", appRouter);
 app.use(errorHandler); //call this after the routes middleware
 
 export default app;

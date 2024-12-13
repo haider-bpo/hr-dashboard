@@ -12,12 +12,12 @@ export const DepartmentEnum = Object.freeze({
 });
 
 export const EmploymentTypeEnum = Object.freeze({
-  FULL_TIME: "full-time",
-  PART_TIME: "part-time",
-});
-
-export const JobTypeEnum = Object.freeze({
   PERMANENT: "permanent",
   CONTRACT: "contract",
   TEMPORARY: "temporary",
+});
+
+export const JobTypeEnum = Object.freeze({
+  FULL_TIME: "full-time",
+  PART_TIME: "part-time",
 });

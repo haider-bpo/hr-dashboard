@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRoutes, useNavigate } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-import "aos/dist/aos.css"; // Import AOS styles
-import AOS from "aos"; // Import the AOS library
+import "aos/dist/aos.css";
+import AOS from "aos"; 
 import routes from "./routes";
 import Loader from "./components/@core/Loader";
 import { Toaster } from "./components/ui/toaster";
