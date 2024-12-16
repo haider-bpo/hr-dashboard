@@ -4,16 +4,16 @@ export enum JobTypeEnum {
 }
 
 export enum DepartmentEnum {
-  SALES = "Sales",
-  CUSTOM_DEVELOPMENT = "Custom Development",
-  GAME_DEVELOPMENT = "Game Development",
-  WORDPRESS = "WordPress",
-  GRAPHIC_DESIGNER = "Graphic Designer",
-  CONTENT_WRITER = "Content Writer",
-  PAID_ADVERTISEMENT = "Paid Advertisement",
-  SOCIAL_MEDIA = "Social Media",
-  SEO = "SEO",
-  OTHERS = "Others",
+  SALES = "sales",
+  CUSTOM_DEVELOPMENT = "custom-development",
+  GAME_DEVELOPMENT = "game-development",
+  WORDPRESS = "wordPress",
+  GRAPHIC_DESIGNER = "graphic-designer",
+  CONTENT_WRITER = "content-writer",
+  PAID_ADVERTISEMENT = "paid-advertisement",
+  SOCIAL_MEDIA = "social-media",
+  SEO = "seo",
+  OTHERS = "others",
 }
 
 export enum EmploymentTypeEnum {

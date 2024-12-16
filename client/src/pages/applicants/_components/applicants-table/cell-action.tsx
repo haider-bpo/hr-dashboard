@@ -8,7 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Applicant } from "@/constants/types/types";
+import { useRemoveApplicant } from "@/features/applicants/applicantSelectors";
+import { Applicant } from "@/features/applicants/applicantTypes";
 import { MoreHorizontal, Trash } from "lucide-react";
 import { useState } from "react";
 
@@ -19,15 +20,19 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading] = useState(false);
   const [open, setOpen] = useState(false);
+  const removeApplicant = useRemoveApplicant();
 
-  const onConfirm = async () => {};
+  const deleteApplicant = async () => {
+    await removeApplicant(data._id || "");
+    setOpen(false);
+  };
 
   return (
     <>
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onConfirm}
+        onConfirm={deleteApplicant}
         loading={loading}
         title={`Delete Applicant "${data?.name} - (${data?.department})"`}
         description="Are you sure you want to delete this applicant?"

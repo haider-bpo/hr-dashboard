@@ -17,4 +17,10 @@ export const jobFormSchema = z.object({
   type: z.nativeEnum(JobTypeEnum, {
     errorMap: () => ({ message: "Please select a job type" }),
   }),
+  description: z
+    .string()
+    .min(10, {
+      message: "Description is required, must be at least 10 characters long.",
+    })
+    .max(5000, { message: "Description cannot exceed 5000 characters." }),
 });

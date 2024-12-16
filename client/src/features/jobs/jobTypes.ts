@@ -6,6 +6,7 @@ export interface Job {
   location: string;
   type: string;
   status?: boolean; // Optional since it has a default value
+  description: string;
   createdAt?: string; // Timestamps added by Mongoose
   updatedAt?: string; // Timestamps added by Mongoose
 }

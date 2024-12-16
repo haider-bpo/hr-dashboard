@@ -2,28 +2,21 @@ import { Heading } from "@/components/@core/heading";
 import PageContainer from "@/components/layout/page-container";
 import { Separator } from "@/components/ui/separator";
 import JobsTable from "./jobs-table";
-// import { jobs } from "@/constants/data";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useGetJobs } from "@/features/jobs/jobSelectors";
+import { useEffect } from "react";
+import { useGetJobs, useJobs } from "@/features/jobs/jobSelectors";
 
 function JobListingPage() {
-  const [jobs, setJobs] = useState<any>([]);
   const navigate = useNavigate();
   const getJobs = useGetJobs();
+  const jobs = useJobs();
 
-  const jobHandler = () => {
+  const jobCreationHandler = () => {
     navigate("/jobs/create");
   };
 
-  const fetchJobs = async () => {
-    const jobs = await getJobs();
-    setJobs(jobs);
-    console.dir('jobs: ', jobs);
-  };
-
   useEffect(() => {
-    fetchJobs();
+    getJobs();
   }, []);
 
   return (
@@ -35,7 +28,7 @@ function JobListingPage() {
             title="Jobs"
             description="Posted jobs"
             actionButtonLabel="Create new job"
-            actionButtonHandler={jobHandler}
+            actionButtonHandler={jobCreationHandler}
             data-aos="fade-down"
           />
         </div>

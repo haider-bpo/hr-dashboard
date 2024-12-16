@@ -6,6 +6,11 @@ export const createJob = asyncHandler(async (req, res) => {
   res.status(201).json(result);
 });
 
+export const findJobById = asyncHandler(async (req, res) => {
+  const result = await JobService.find(req);
+  res.status(201).json(result);
+});
+
 export const updateJob = asyncHandler(async (req, res) => {
   const result = await JobService.update(req);
   res.status(200).json(result);

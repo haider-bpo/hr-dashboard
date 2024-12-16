@@ -1,6 +1,5 @@
 import { DataTable } from "@/components/@core/table/data-table";
 import { columns } from "./columns";
-import { Job } from "@/constants/types/types";
 import {
   ColumnFiltersState,
   getCoreRowModel,
@@ -13,6 +12,7 @@ import {
 } from "@tanstack/react-table";
 import React from "react";
 import DataTableSearch from "@/components/@core/table/data-table-search";
+import { Job } from "@/features/jobs/jobTypes";
 
 function JobsTable({ data }: { data: Job[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -36,7 +36,7 @@ function JobsTable({ data }: { data: Job[] }) {
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: (row, columnId, filterValue) => {
+    globalFilterFn: (row, _, filterValue) => {
       const searchValue = filterValue.toLowerCase()
       return Object.values(row.original).some(value => 
         String(value).toLowerCase().includes(searchValue)

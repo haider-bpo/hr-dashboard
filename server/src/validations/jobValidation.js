@@ -25,5 +25,11 @@ export const jobValidationSchema = z.object({
   type: z.string().refine((val) => Object.values(JobTypeEnum).includes(val), {
     message: "The 'job type' field must be selected and valid",
   }),
+  description: z
+    .string()
+    .min(10, {
+      message: "Description is required, must be at least 10 characters long.",
+    })
+    .max(5000, { message: "Description cannot exceed 5000 characters." }),
   status: z.boolean().optional(),
 });

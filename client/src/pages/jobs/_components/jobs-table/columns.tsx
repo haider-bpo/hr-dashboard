@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Job } from "@/constants/types/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { CellAction } from "./cell-action";
+import { ViewJobDetail } from "../view-job-detail";
+import { Job } from "@/features/jobs/jobTypes";
 
 export const columns: ColumnDef<Job>[] = [
   {
@@ -39,6 +40,11 @@ export const columns: ColumnDef<Job>[] = [
   {
     accessorKey: "employment",
     header: "Employment",
+  },
+  {
+    accessorKey: "",
+    header: "Details",
+    cell: ({ row }) => <ViewJobDetail job={row.original} />,
   },
   {
     id: "actions",

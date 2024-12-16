@@ -1,18 +1,18 @@
 import { create, StateCreator } from "zustand";
 import { Applicant } from "./applicantTypes";
-import { deleteApplicant, getApplicants } from "./applicantApi";
+import { deleteApplicant, fetchApplicants } from "./applicantApi";
 import { toast } from "@/hooks/use-toast";
 
 export interface ApplicantStore {
   applicants: Applicant[];
   getApplicants: () => Promise<void>;
-  deleteApplicant: (applicantId: string) => Promise<void>;
+  removeApplicant: (applicantId: string) => Promise<void>;
 }
 
 const applicantStore: StateCreator<ApplicantStore> = (set) => ({
   applicants: [],
   getApplicants: async () => {
-    const res = await getApplicants();
+    const res = await fetchApplicants();
 
     if (res.data) {
       const { applicants } = res.data;
@@ -24,11 +24,12 @@ const applicantStore: StateCreator<ApplicantStore> = (set) => ({
         title: "Applicants Retrieved Successfully",
         description: "View the retrieved applicants",
         variant: "success",
+        duration: 1000,
       });
     }
   },
 
-  deleteApplicant: async (applicantId: string) => {
+  removeApplicant: async (applicantId: string) => {
     const res = await deleteApplicant(applicantId);
 
     if (res.data) {

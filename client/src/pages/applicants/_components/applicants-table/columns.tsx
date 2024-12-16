@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Applicant } from "@/constants/types/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, FileDown } from "lucide-react";
 import { CellAction } from "./cell-action";
+import { Applicant } from "@/features/applicants/applicantTypes";
+import { downloadFileFromUrl } from "@/utils/downloadFile";
 
 export const columns: ColumnDef<Applicant>[] = [
   {
@@ -35,25 +36,31 @@ export const columns: ColumnDef<Applicant>[] = [
     header: "City",
   },
   {
-    accessorKey: "experience",
-    header: "Experience",
-  },
-  {
     accessorKey: "department",
     header: "Department",
   },
   {
-    accessorKey: "cv",
-    header: "CV",
+    accessorKey: "experience",
+    header: "Experience",
+  },
+  {
+    accessorKey: "resume",
+    header: "Resume",
     cell: ({ row }) => {
-      const handleExportStory = () => {};
+      const downloadResume = async () => {
+        const url = row.original.resume;
+        const fileName = `${row.original.name || ""} resume.pdf`; // Default to "Untitled" if no name
+
+        downloadFileFromUrl(url, fileName);
+      };
 
       return (
         <Button
-          onClick={handleExportStory}
-          disabled={!row.original.cv}
+          onClick={downloadResume}
+          disabled={!row.original.resume}
           variant="outline"
           size={"icon"}
+          className="text-[#005BEA] hover:text-[#005BEA]/80"
         >
           <FileDown />
         </Button>

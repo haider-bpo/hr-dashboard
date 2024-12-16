@@ -4,17 +4,12 @@ import { ApiError, ApiResponse } from "../utils/index.js";
 
 export class ApplicantService {
   static async create(req) {
-    const { name, email, phone, city, experience, department } = req.body;
+    const applicantDetail = req.body;
 
-    const resumeUrl = req.file.path;
+    const resumeUrl = req?.file?.path;
 
     const newApplicant = await Applicant.create({
-      name,
-      email,
-      phone,
-      city,
-      experience,
-      department,
+      ...applicantDetail,
       resume: resumeUrl,
     });
 

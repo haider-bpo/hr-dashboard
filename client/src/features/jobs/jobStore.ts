@@ -1,21 +1,28 @@
 import { toast } from "@/hooks/use-toast";
-import { createJob, deleteJob, getJobs, updateJob } from "./jobApi";
+import {
+  createJob,
+  deleteJob,
+  fetchJobById,
+  fetchJobs,
+  updateJob,
+} from "./jobApi";
 import { Job } from "./jobTypes"; // Import Job interface
 import { create, StateCreator } from "zustand";
 
 export interface JobsStore {
   jobs: Job[];
   getJobs: () => Promise<void>;
+  getJobById: (jobId: string) => Promise<Job>;
   addJob: (job: Job) => Promise<void>;
-  updateJob: (jobId: string, updatedJob: Partial<Job>) => Promise<void>;
-  deleteJob: (jobId: string) => Promise<void>;
+  updateJob: (jobId: string, updatedJob: Partial<Job>) => Promise<Job | undefined>;
+  removeJob: (jobId: string) => Promise<void>;
 }
 
 const jobsStore: StateCreator<JobsStore> = (set) => ({
   jobs: [],
 
   getJobs: async () => {
-    const res = await getJobs();
+    const res = await fetchJobs();
 
     if (res?.data) {
       const { jobs } = res.data;
@@ -28,7 +35,17 @@ const jobsStore: StateCreator<JobsStore> = (set) => ({
         title: "Jobs Retrieved Successfully",
         description: "View the retrieved jobs",
         variant: "success",
+        duration: 1000,
       });
+    }
+  },
+
+  getJobById: async (jobId) => {
+    const res = await fetchJobById(jobId);
+
+    if (res?.data) {
+      const { job } = res.data;
+      return job;
     }
   },
 
@@ -63,10 +80,12 @@ const jobsStore: StateCreator<JobsStore> = (set) => ({
         description: "View the updated job",
         variant: "success",
       });
+
+      return updated;
     }
   },
 
-  deleteJob: async (jobId) => {
+  removeJob: async (jobId) => {
     const res = await deleteJob(jobId);
 
     if (res.data) {
