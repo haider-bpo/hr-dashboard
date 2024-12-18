@@ -1,5 +1,4 @@
 import { create, StateCreator } from "zustand";
-import { persist } from "zustand/middleware";
 import { toast } from "@/hooks/use-toast";
 import { User } from "./authTypes";
 import { fetchUser, logoutUser, signinUser, signupUser } from "./authApi";
@@ -14,7 +13,7 @@ export interface AuthStore {
   logout: () => Promise<void>;
 
   // User Management Methods
-  getUser: () => Promise<User | null>;
+  getUser: () => Promise<void>;
 }
 
 const authStore: StateCreator<AuthStore> = (set, get) => ({
@@ -87,22 +86,10 @@ const authStore: StateCreator<AuthStore> = (set, get) => ({
       const { user } = res.data;
 
       set(() => ({ user }));
-
-      return user;
     }
-
-    return null;
   },
 });
 
-const useAuthStore = create<AuthStore>()(
-  persist(authStore, {
-    name: "auth-storage",
-    partialize: (state) => ({
-      user: state.user,
-      isAuthenticated: state.isAuthenticated,
-    }),
-  })
-);
+const useAuthStore = create<AuthStore>(authStore);
 
 export default useAuthStore;

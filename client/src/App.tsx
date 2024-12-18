@@ -16,6 +16,7 @@ function App() {
   const [showLoader, setShowLoader] = useState(true);
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
+  const getUser = useGetUser();
 
   // Start loading on route change
   useEffect(() => {
@@ -40,22 +41,24 @@ function App() {
   }, [navigate]);
 
   useEffect(() => {
+
+    //get user data
+    getUser();
+
     AOS.init({
       duration: 400, // Animation duration (ms)
       easing: "ease-in-out", // Easing function
       once: false, // Whether animations should happen only once
     });
-  }, []);
 
   // Show or hide loader based on showLoader state
-  useEffect(() => {
     setTimeout(() => {
       setShowLoader(false);
     }, 500);
   }, []);
 
   // Render loading bar if showLoader is true
-  // if (showLoader) return <Loader />;
+  if (showLoader) return <Loader />;
 
   return (
     <>
