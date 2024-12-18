@@ -1,31 +1,37 @@
-// import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import User from "../models/user.model.js";
+import { ApiError } from "../utils/index.js";
 
-// import { ApiError, asyncHandler } from "../utils/index.js";
-// import { ACCESS_TOKEN_NAME } from "../constants.js";
-// import { userService } from "../services/index.js";
-// import { ACCESS_TOKEN_SECRET } from "../config/environment.js";
+export const authenticate = async (req, res, next) => {
+  try {
+    // Extract the token from the Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return next(new ApiError(401, "Access token is missing or malformed"));
+    }
 
-// const authenticate = asyncHandler(async (req, res, next) => {
-//   const accessToken = req.cookies?.[ACCESS_TOKEN_NAME];
+    const token = authHeader.split(" ")[1]; // Extract token after "Bearer"
 
-//   if (!accessToken) {
-//     throw new ApiError(403, "unauthorized, Access token not Provided");
-//   }
+    // Verify the token
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    } catch (err) {
+      return next(new ApiError(401, "Invalid or expired access token"));
+    }
 
-//   let userId;
-//   jwt.verify(accessToken, ACCESS_TOKEN_SECRET, (err, decoded) => {
-//     if (err) throw new ApiError(403, "unauthorized, Invalid Access Token");
+    // Find the user by ID from the decoded token
+    const user = await User.findById(decoded.id).select("-password"); // Avoid fetching sensitive data
+    if (!user) {
+      return next(new ApiError(401, "Invalid or expired access token"));
+    }
 
-//     userId = decoded._id;
-//   });
+    // Attach the user to the request object for downstream access
+    req.user = user;
 
-//   const user = await userService.getUserDetail(userId);
-
-//   if (!user) throw new ApiError(403, "unauthorized user");
-
-//   req.user = user;
-
-//   next();
-// });
-
-// export default authenticate;
+    next(); // Proceed to the next middleware or route handler
+  } catch (error) {
+    // Pass any unexpected errors to the global error handler
+    next(error);
+  }
+};

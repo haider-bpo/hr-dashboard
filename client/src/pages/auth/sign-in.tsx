@@ -2,9 +2,9 @@ import { Heading } from "@/components/@core/heading";
 import InputField from "@/components/@core/inputs/input-field";
 import PasswordField from "@/components/@core/inputs/password-field";
 import { Button } from "@/components/ui/button";
+import { useSigninUser } from "@/features/auth/authSelectors";
 import { useToast } from "@/hooks/use-toast";
 import { signInSchema } from "@/schemas/sigin-form-schema";
-import { useSignIn } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -30,7 +30,7 @@ const signInFormFields = [
 ];
 
 const SignInPage: FC<SignInPageProps> = () => {
-  const { isLoaded, signIn, setActive } = useSignIn();
+  const signin = useSigninUser();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -40,38 +40,17 @@ const SignInPage: FC<SignInPageProps> = () => {
     resolver: zodResolver(signInSchema),
   });
 
-  
-
   const onSubmit = async (data: SignInFormData) => {
-    if (!isLoaded) return;
+    const user = await signin(data);
 
-    const { username, password } = data;
+    if (user) {
+      navigate("/jobs");
 
-    try {
-      const signInResponse = await signIn?.create({
-        identifier: username,
-        password: password,
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+        variant: "primary",
       });
-
-      // More explicit session activation
-      if (signInResponse?.status === "complete") {
-        await setActive({ session: signInResponse.createdSessionId });
-
-        // Additional check to ensure session is set
-        if (signInResponse.createdSessionId) {
-          navigate("/");
-        }
-
-        toast({
-          title: "Signed In Successfully",
-          description: "Manage jobs",
-          variant: "primary",
-        });
-      }
-    } catch (err: any) {
-      console.error("Sign-in error:", err);
-      // Optionally add error handling for the user
-      // For example, you might want to set an error state to show a message
     }
   };
 
@@ -125,12 +104,7 @@ const SignInPage: FC<SignInPageProps> = () => {
                 )}
 
                 {/* Submit Button */}
-                <Button
-                  size="lg"
-                  variant="primary"
-                  type="submit"
-                  disabled={!isLoaded}
-                >
+                <Button size="lg" variant="primary" type="submit">
                   Signin
                 </Button>
               </div>

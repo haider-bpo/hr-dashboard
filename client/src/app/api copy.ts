@@ -17,15 +17,16 @@ const api: AxiosInstance = axios.create({
   },
 });
 
-// Utility function to manage redirects
-let isRedirecting = false;
-
 // Function to refresh the token using refreshToken stored in localStorage
 const refreshAuthToken = async (): Promise<string | null> => {
   const refreshToken = localStorage.getItem("refreshToken");
 
   if (!refreshToken) {
-    handleSessionExpired();
+    toast({
+      title: "Session expired",
+      description: "Please log in again.",
+      variant: "destructive",
+    });
     return null;
   }
 
@@ -41,27 +42,13 @@ const refreshAuthToken = async (): Promise<string | null> => {
   } catch (error) {
     console.log("error", error);
     // Handle error (e.g., refresh token expired)
-    handleSessionExpired();
+    toast({
+      title: "Session expired",
+      description: "Please log in again.",
+      variant: "destructive",
+    });
     return null;
   }
-};
-
-// Handle session expiration logic
-const handleSessionExpired = () => {
-  if (isRedirecting) return; // Prevent infinite redirects
-  isRedirecting = true;
-  toast({
-    title: "Session expired",
-    description: "Please log in again.",
-    variant: "destructive",
-  });
-
-  // Clear session data
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-
-  // Redirect to sign-in page
-  window.location.href = "/signin"; 
 };
 
 // Request interceptor to attach the access token to requests
@@ -80,20 +67,17 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response: AxiosResponse) => response.data,
   async (error) => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true; // Prevent retry loops
-
-      // Attempt to refresh the token
+    if (error.response?.status === 401) {
+      // If the token is expired, try to refresh it
       const newAccessToken = await refreshAuthToken();
+
       if (newAccessToken) {
         // Retry the original request with the new access token
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        error.config.headers.Authorization = `Bearer ${newAccessToken}`;
+        return api(error.config); // Retry the failed request
       } else {
-        // If refresh fails, log out the user and clear session
-        handleSessionExpired();
+        // If refresh fails, log out the user
+        window.location.href = "/signin"; // Redirect to signin page
       }
     }
 

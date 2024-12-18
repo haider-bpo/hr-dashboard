@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { useRoutes, useNavigate } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 import "aos/dist/aos.css";
-import AOS from "aos"; 
+import AOS from "aos";
 import routes from "./routes";
 import Loader from "./components/@core/Loader";
 import { Toaster } from "./components/ui/toaster";
+import { useGetUser } from "./features/auth/authSelectors";
 
 const AppRoutes = () => {
   return useRoutes(routes);
@@ -54,7 +55,7 @@ function App() {
   }, []);
 
   // Render loading bar if showLoader is true
-  if (showLoader) return <Loader />;
+  // if (showLoader) return <Loader />;
 
   return (
     <>

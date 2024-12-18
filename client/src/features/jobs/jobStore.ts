@@ -14,7 +14,10 @@ export interface JobsStore {
   getJobs: () => Promise<void>;
   getJobById: (jobId: string) => Promise<Job>;
   addJob: (job: Job) => Promise<void>;
-  updateJob: (jobId: string, updatedJob: Partial<Job>) => Promise<Job | undefined>;
+  updateJob: (
+    jobId: string,
+    updatedJob: Partial<Job>
+  ) => Promise<Job | undefined>;
   removeJob: (jobId: string) => Promise<void>;
 }
 
@@ -30,13 +33,6 @@ const jobsStore: StateCreator<JobsStore> = (set) => ({
       set(() => ({
         jobs: jobs,
       }));
-
-      toast({
-        title: "Jobs Retrieved Successfully",
-        description: "View the retrieved jobs",
-        variant: "success",
-        duration: 1000,
-      });
     }
   },
 

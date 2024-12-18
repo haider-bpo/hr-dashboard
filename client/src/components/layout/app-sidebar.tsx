@@ -23,14 +23,9 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useClerk } from "@clerk/clerk-react";
-
-const user = {
-  name: "John Doe",
-  email: "johndoe@gmail.com",
-};
+import { useLogoutUser, useUser } from "@/features/auth/authSelectors";
 
 //company details
 const company = {
@@ -58,7 +53,14 @@ export function AppSidebar() {
   const location = useLocation();
   const pathname = location.pathname;
   const { open } = useSidebar();
-  const { signOut } = useClerk();
+  const logoutUser = useLogoutUser();
+  const navigate = useNavigate();
+  const user = useUser();
+
+  const signOut = () => {
+    logoutUser();
+    navigate("/signin");
+  };
 
   return (
     <Sidebar collapsible="icon">
@@ -115,14 +117,14 @@ export function AppSidebar() {
                   <Avatar className={`${!open ? "h-8 w-8 rounded-lg" : ""}`}>
                     <AvatarImage src="" alt="" />
                     <AvatarFallback>
-                      {user.name.slice(0, 2)?.toUpperCase() || "CN"}
+                      {user?.name?.slice(0, 2)?.toUpperCase() || "CN"}
                     </AvatarFallback>
                   </Avatar>
 
                   {/* user detail  */}
                   <div className="grid text-left text-sm leading-tight">
                     <span className="truncate font-semibold">{user?.name}</span>
-                    <span className="truncate text-xs">{user?.email}</span>
+                    {/* <span className="truncate text-xs">{user?.email}</span> */}
                   </div>
 
                   <ChevronsUpDown className="ml-auto size-4" />
@@ -136,7 +138,7 @@ export function AppSidebar() {
                     <Avatar>
                       <AvatarImage src="" alt="" />
                       <AvatarFallback>
-                        {user.name.slice(0, 2)?.toUpperCase() || "CN"}
+                        {user?.name?.slice(0, 2)?.toUpperCase() || "CN"}
                       </AvatarFallback>
                     </Avatar>
 
@@ -145,7 +147,7 @@ export function AppSidebar() {
                       <span className="truncate font-semibold">
                         {user?.name}
                       </span>
-                      <span className="truncate text-xs">{user?.email}</span>
+                      {/* <span className="truncate text-xs">{user?.email}</span> */}
                     </div>
                   </div>
                 </DropdownMenuLabel>

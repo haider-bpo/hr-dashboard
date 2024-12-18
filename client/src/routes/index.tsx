@@ -3,7 +3,8 @@ import { RouteObject, useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/layout/dashboard-layout";
 import JobsPage from "@/pages/jobs";
 import SignInPage from "@/pages/auth/sign-in";
-import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const ApplicantsPage = lazy(() => import("@/pages/applicants"));
 const JobCreationPage = lazy(
@@ -15,61 +16,43 @@ const routes: RouteObject[] = [
   {
     path: "/signin",
     element: (
-      <SignedOut>
+      <PublicRoute>
         <SignInPage />
-      </SignedOut>
+      </PublicRoute>
     ),
   },
-
   {
-    path: "",
+    path: "/",
     element: (
-      <SignedIn>
+      <PrivateRoute>
         <DashboardLayout />
-      </SignedIn>
+      </PrivateRoute>
     ),
     children: [
       {
-        path: "/",
-        element: (
-          <SignedIn>
-            <RedirectOnLoad />
-          </SignedIn>
-        ),
+        index: true,
+        element: <RedirectOnLoad />,
       },
       {
         path: "jobs",
-        element: (
-          <SignedIn>
-            <JobsPage />
-          </SignedIn>
-        ),
+        element: <JobsPage />,
       },
       {
         path: "jobs/:jobId",
-        element: (
-          <SignedIn>
-            <JobCreationPage />
-          </SignedIn>
-        ),
+        element: <JobCreationPage />,
       },
       {
         path: "applicants",
-        element: (
-          <SignedIn>
-            <ApplicantsPage />
-          </SignedIn>
-        ),
+        element: <ApplicantsPage />,
       },
     ],
   },
-
   {
     path: "*",
     element: (
-      <SignedOut>
+      <PublicRoute>
         <NotFound />
-      </SignedOut>
+      </PublicRoute>
     ),
   },
 ];
@@ -78,11 +61,11 @@ function RedirectOnLoad() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect to jobs page as soon as the app loads if authenticated
+    // Redirect to jobs page on app load
     navigate("/jobs");
-  }, []);
+  }, [navigate]);
 
-  return null; // This component doesn't render anything
+  return null;
 }
 
 export default routes;

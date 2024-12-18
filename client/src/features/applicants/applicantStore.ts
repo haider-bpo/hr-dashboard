@@ -19,13 +19,6 @@ const applicantStore: StateCreator<ApplicantStore> = (set) => ({
       set(() => ({
         applicants: applicants,
       }));
-
-      toast({
-        title: "Applicants Retrieved Successfully",
-        description: "View the retrieved applicants",
-        variant: "success",
-        duration: 1000,
-      });
     }
   },
 
