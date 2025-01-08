@@ -8,7 +8,6 @@ export const DepartmentEnum = Object.freeze({
   PAID_ADVERTISEMENT: "paid-advertisement",
   SOCIAL_MEDIA: "social-media",
   SEO: "seo",
-  OTHERS: "others",
 });
 
 export const EmploymentTypeEnum = Object.freeze({

@@ -48,7 +48,7 @@ export class JobService {
   }
 
   static async getAll(req) {
-    const jobs = await Job.find({});
+    const jobs = await Job.find({}).sort({ createdAt: -1 }); // Sort by createdAt in descending order
     return new ApiResponse({ jobs }, 200, "Jobs fetched successfully");
   }
 }

@@ -13,7 +13,6 @@ export enum DepartmentEnum {
   PAID_ADVERTISEMENT = "paid-advertisement",
   SOCIAL_MEDIA = "social-media",
   SEO = "seo",
-  OTHERS = "others",
 }
 
 export enum EmploymentTypeEnum {

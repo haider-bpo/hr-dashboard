@@ -43,7 +43,7 @@ export class ApplicantService {
   }
 
   static async getAll(req) {
-    const applicants = await Applicant.find({});
+    const applicants = await Applicant.find({}).sort({ createdAt: -1 }); // Sort by createdAt in descending order
     return new ApiResponse(
       { applicants },
       200,
